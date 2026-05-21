@@ -1,5 +1,5 @@
 import streamlit as st
-from interfaces.data_interfaces.input_item import InputItem
+from data.input_item import InputItem
 from interfaces.input_llenado import InputLlenado
 
 class EveryPutInterface:

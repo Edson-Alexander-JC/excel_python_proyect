@@ -1,5 +1,5 @@
 from interfaces.every_put_interface import EveryPutInterface
-from interfaces.data_interfaces.input_item import InputItem
+from data.input_item import InputItem
 textinput = EveryPutInterface()
 
 # dataset: InputItem = InputItem(

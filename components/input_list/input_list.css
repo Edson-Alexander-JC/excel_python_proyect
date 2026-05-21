@@ -1,0 +1,39 @@
+.il{
+    font-family: var(--st-font);
+}
+
+    
+.il-body{
+  background-color:#897555;
+  display: flex;
+  flex-direction: column; 
+}
+
+.row {
+  display:flex;
+  background-color:#555333;
+  justify-content: center;
+}
+
+.inputs_row {
+  padding: 5px;
+  border: 1px solid var(--st-border-color);
+}
+
+.buttons_row {
+  display:flex;
+  width: expand;
+  justify-content: center;
+  background-color: #987;
+  align-items: center;
+}
+
+.input_list_container{
+  display:flex;
+  height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ccc; 
+  padding: 10px;
+  flex-direction: column; 
+  background-color:#897555;
+}
