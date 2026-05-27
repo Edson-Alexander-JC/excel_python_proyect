@@ -1,4 +1,4 @@
-from interfaces.every_put_interface import EveryPutInterface
+from components.every_put import EveryPutInterface
 from data.input_item import InputItem
 textinput = EveryPutInterface()
 

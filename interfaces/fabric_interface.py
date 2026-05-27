@@ -1,6 +1,8 @@
 from abc import ABC,abstractmethod
 class FabricInterface(ABC):
     @abstractmethod
+    def view_arquitecture(self):pass
+    @abstractmethod
     def render(self):pass
     @abstractmethod
     def set_vars(self):pass
