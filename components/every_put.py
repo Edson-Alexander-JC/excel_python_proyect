@@ -48,10 +48,12 @@ class EveryPut:
             case "list": 
                 resultado = InputList(item)
             case "bool": 
-                resultado = st.checkbox( 
+                resultado = st.checkbox(
                         label,label_visibility=visibility, 
                         value=item.value if item.value is not None else False, key=item.key 
                     ) 
+            case "radio":
+                resultado = st.radio(label,item.values)
             case _: 
                 return st.warning("Tipo no soportado: " + item.kind)
         

@@ -7,3 +7,4 @@ class FrenteVoladura:
     z: float = 0
     burden: float = 0
     espaciamiento: float = 0
+    kind : bool = False

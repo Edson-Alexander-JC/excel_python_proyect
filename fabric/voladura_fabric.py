@@ -96,6 +96,11 @@ class VoladuraFabric(FabricInterface):
         )        
         
     def def_frente_voladura(self):
+        self.frente.kind = self.input(
+                key="b",kind="radio",
+                label="Tipo de frente de voladura",
+                values=["M.Superficial","M.Subterranea"]
+        )
         self.frente.b = self.input(
                 key="b",kind="float",
                 label="ancho del frente de voladura",
@@ -163,6 +168,7 @@ class VoladuraFabric(FabricInterface):
                 label="Factor de arranque del explosivo",
                 unit="kcal/kg", value=912.0
         )
+    
     def def_volquetes(self):
         self.volquete.name = self.input(
                 key="volquete_name",kind="string",
@@ -269,8 +275,14 @@ class VoladuraFabric(FabricInterface):
         
     def set_burdenes(self):
         st.subheader("Burdenes y nro Taladros")
-        self.mk_col([
         
+        self.output(
+            key="burden_escogido",unit="m",
+            label="burden, que nosotros hemos colocamos",
+            value= self.frente.burden,
+        )
+        
+        self.mk_col([
             lambda: self.output(
                 key="burden_pearse_1955",unit="m",
                 label="burden, segun pearse (1955)",
@@ -323,6 +335,12 @@ class VoladuraFabric(FabricInterface):
                     ),
                 }
         ])
+        
+        self.output(
+            label="burden promedio", key="burden_prom",
+            unit="m", value= self.vd.promedio_burden()
+        )
+        
         
     def set_output_view(self):
         self.set_ton_vol()

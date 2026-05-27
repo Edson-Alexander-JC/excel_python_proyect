@@ -21,8 +21,15 @@ class VoladuraDomain():
         
         self.area: float = 0
         self.volumen: float = 0
+        
         self.burden_konya : float = 0
-        pass
+        self.burden_pearse : float = 0
+        self.burden_andersen : float = 0
+        self.burden_fraenkel : float = 0
+        self.burden_allsman : float = 0
+        self.burden_ash : float = 0
+        self.burden_JKRMC : float = 0
+        
     def def_maquinaria(self):
         self.diametro_broca : float = 0
         self.long_barra : float = 0
@@ -60,6 +67,7 @@ class VoladuraDomain():
         
         burden = self.roca.f_k_roca * diametro
         burden = burden * raiz
+        self.burden_pearse = burden
         return round(burden,2)
     
     def burden_andersen_1952(self):
@@ -67,6 +75,7 @@ class VoladuraDomain():
         long = self.frente.z * 3.28084 
         
         burden = (diametro * long) ** (1/2)
+        self.burden_andersen = burden
         return round(burden,2)
     
     def burden_fraenkel_1952(self):
@@ -76,15 +85,18 @@ class VoladuraDomain():
         long_epx = (self.explosivo.long_explosivo / 1000) ** 0.3
         
         burden = r_voladura * long_barreno * long_epx * diametro
+        self.burden_fraenkel = burden
         return round(burden,2)
     
     def burden_allsman_1960(self,diametro_t,p_det,time_p_det,vel_min,p_esp):
         burden = p_det * diametro_t * time_p_det * (9.8)
         burden = burden / (p_esp * vel_min)
         burden = burden ** (1/2)
+        self.burden_allsman = burden
         return burden
     def burden_ash_1963(self,f_k_roca,diametro_t):
         burden = (diametro_t * f_k_roca) / 12
+        self.burden_ash = burden
         return round(burden,2)
 
     def burden_konya_1976(self):
@@ -190,7 +202,7 @@ class VoladuraDomain():
         # print("Nuevo Denominador:", denominador)
         # print("Masa Explosivo Total (kg):", masa_explosivo_total)
         # print("Burden Resultante:", burden)
-        
+        self.burden_JKRMC = burden
         return round(burden, 2)
 
 
@@ -224,3 +236,17 @@ class VoladuraDomain():
             nro_tem * self.avance_real(long_barra,f_arranque,f_perforacion),
             nro_tpe * self.avance_real(long_barra,f_arranque,f_perforacion),
         ]
+    
+    def promedio_burden(self):
+        burden_prom = (
+            self.burden_konya +
+            self.burden_pearse +
+            self.burden_andersen +
+            self.burden_fraenkel +
+            self.burden_allsman +
+            self.burden_ash +
+            self.burden_JKRMC +
+            self.frente.burden
+        )/8
+        return round(burden_prom, 2)
+        
