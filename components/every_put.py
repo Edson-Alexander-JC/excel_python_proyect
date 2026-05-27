@@ -53,7 +53,7 @@ class EveryPut:
                         value=item.value if item.value is not None else False, key=item.key 
                     ) 
             case "radio":
-                resultado = st.radio(label,item.values)
+                resultado = st.radio(label,item.values,horizontal=True)
             case _: 
                 return st.warning("Tipo no soportado: " + item.kind)
         

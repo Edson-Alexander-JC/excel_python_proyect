@@ -206,14 +206,27 @@ class VoladuraDomain():
         return round(burden, 2)
 
 
-    def nro_taladros_met_empirico(self,b,h):
-        return 10 * ((b*h) ** (1/2))
-    def nro_taladros_met_perimetros(self,b,h,f_k_roca,espaciamiento):
-        nro_taladros = self.calc_seccion(b,h) ** (1/2)
-        nro_taladros = nro_taladros * 4
-        nro_taladros = nro_taladros / espaciamiento
-        nro_taladros = nro_taladros + (f_k_roca * self.calc_seccion(b,h))
-        return nro_taladros
+    def nro_taladros_met_empirico(self):
+        b = self.frente.b
+        h = self.frente.h
+        nro_taladros = 10 * ((b*h) ** (1/2))
+        return round(nro_taladros, 0)
+    
+    def nro_taladros_met_perimetros(self):
+        espaciamiento = self.frente.espaciamiento
+        f_k_roca = self.roca.f_k_roca
+        b = self.frente.b
+        h = self.frente.h
+        perimetro = 0
+
+        if(self.frente.kind == "M.Superficial"):
+            perimetro = (2 * b) + (2 * h)
+        else:
+            perimetro = (self.calc_seccion() ** (1/2)) * 4
+        
+        nro_taladros = (perimetro / espaciamiento) + (f_k_roca / self.calc_seccion())
+        nro_taladros = nro_taladros + (f_k_roca * self.calc_seccion())
+        return round(nro_taladros, 0)
         
             
     def avance_real(self,long_barra,f_arranque,f_perforacion):

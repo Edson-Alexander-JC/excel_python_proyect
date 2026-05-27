@@ -274,7 +274,7 @@ class VoladuraFabric(FabricInterface):
         ])
         
     def set_burdenes(self):
-        st.subheader("Burdenes y nro Taladros")
+        st.subheader("Burdenes")
         
         self.output(
             key="burden_escogido",unit="m",
@@ -340,23 +340,36 @@ class VoladuraFabric(FabricInterface):
             label="burden promedio", key="burden_prom",
             unit="m", value= self.vd.promedio_burden()
         )
+    def nro_taladros(self):
+        st.subheader("Nro Taladros")
+        nro_t_mp = self.vd.nro_taladros_met_perimetros()
+        nro_t_me = self.vd.nro_taladros_met_empirico()
         
+        self.mk_col([
+            lambda: self.output(
+                key="nro_t_me",unit="taladros/disparo",
+                label="nro de taladros  por metodo empirico",
+                value=nro_t_me
+            ),
+
+            lambda: self.output(
+                key="nro_t_mp",unit="taladros/disparo",
+                label="nro de taladros por metodo de los perimetros",
+                value=nro_t_mp
+            ),
+        ])
+        self.output(
+            key="nro_t_prom",unit="taladros/disparo",
+            label="nro de taladros promedio",
+            value= (nro_t_mp + nro_t_me) / 2
+        ),
         
     def set_output_view(self):
         self.set_ton_vol()
         st.divider()
         self.set_burdenes()
-        self.mk_col([
-            lambda: self.output(
-                key="volumen_real",label="Volumen real",
-                unit="m³",value=self.vd.volumen_real()
-            ),
-
-            lambda: self.output(
-                key="tonelaje",label="Tonelaje",
-                unit="t",value=self.vd.tonelaje()
-            ),
-        ])
+        st.divider()
+        self.nro_taladros()
         
     def view_arquitecture(self):
         tab1, tab2, tab3 = st.tabs([
