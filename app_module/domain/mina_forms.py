@@ -11,6 +11,5 @@ class MinaForms():
                 "Labor": LaborFabric(),
                 "Perforacion": Perforacion(),
                 "Voladura": Voladura(),
-                "Explosivo": Explosivo(),
                 "Carguio": Carguio(),
             }

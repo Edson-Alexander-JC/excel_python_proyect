@@ -12,12 +12,7 @@ class FrenteVoladuraFabric(ViewInterface):
         st.title("Propiedades del Frente de Voladura")
         self.make_arquitecture()
 
-    def general_propertis(self):
-        self.ep.print_input(InputItem(
-            key="frente_sup_type", kind="radio",
-            label="Seleccione tipo de Banco",
-            values=["Vertical", "Inclinada", "En cuña"] 
-        ))
+    def general_propertis(self):pass
 
     def make_arquitecture(self):
         self.general_propertis()
